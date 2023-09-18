@@ -1,0 +1,43 @@
+---
+title: "Bootcamp exercise"
+author: "Xinyang Zhou"
+date: "2023-09-18"
+output: pdf_document
+---
+
+```{r}
+library(dpl)
+```
+
+```{r}
+nys_acs
+```
+
+```{r}
+summary(nys_acs)
+summary(nys_schools)
+```
+
+# Deal with missing values
+
+```{r}
+nys_schools$mean_math_score[nys_schools$mean_math_score == -99] = NA
+nys_schools[nys_schools == -99] = NA
+```
+
+```{r}
+quantile(nys_acs$median_household_income)
+nys_acs$poverty_level = "High"
+
+ifelse(nys_acs$median_household_income>56447.50, nys_acs$poverty_level == "High", ifelse(nys_acs$median_household_income<46346.75, nys_acs$poverty_level == "Low", nys_acs$poverty_level == "Medium"))
+```
+
+
+```{r}
+nys_acs[nys_acs$median_household_income>=56447.50,]$poverty_level = "High"
+nys_acs[nys_acs$median_household_income<56447.50,]$poverty_level = "Medium"
+nys_acs[nys_acs$median_household_income<46346.75,]$poverty_level = "Low"
+nys_acs
+```
+
+
